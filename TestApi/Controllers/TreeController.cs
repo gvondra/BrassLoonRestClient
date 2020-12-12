@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace TestApi.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class TreeController : ControllerBase
+    {
+        private static dynamic Result = new { Name = "Maple" };
+
+        [HttpDelete()]
+        public IActionResult Delete()
+        {
+            return Ok(Result);
+        }
+
+        [HttpGet()]
+        public IActionResult Get()
+        {
+            return Ok(Result);
+        }
+
+        [HttpGet("Name")]
+        public IActionResult GetString()
+        {
+            return Content(Result.Name, "text/plan");
+        }
+
+        [HttpPost(), HttpPut()]
+        public IActionResult Create([FromBody] dynamic body)
+        {
+            return Ok(Result);
+        }
+    }
+}
