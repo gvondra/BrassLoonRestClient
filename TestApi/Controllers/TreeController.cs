@@ -26,9 +26,15 @@ namespace TestApi.Controllers
         }
 
         [HttpGet("Name")]
-        public IActionResult GetString()
+        public IActionResult GetName()
         {
-            return Content(Result.Name, "text/plan");
+            return Content(Result.Name, "text/plain");
+        }
+
+        [HttpGet("Branch/{id}")]
+        public IActionResult GetBranch(string id)
+        {
+            return Ok(new { Branch = 404, Id = id });
         }
 
         [HttpPost(), HttpPut()]

@@ -23,19 +23,18 @@ namespace BrassLoon.RestClient.Internal
         }
 
         public static HttpContent Build(object body)
-        {
-            HttpContent result = null;
+        {            
+            MemoryStream stream = new MemoryStream();
             if (body != null)
             {
-                MemoryStream stream = new MemoryStream();
                 StreamWriter writer = new StreamWriter(stream);
                 JsonSerializer serializer = new JsonSerializer() { ContractResolver = new DefaultContractResolver() };
                 serializer.Serialize(writer, body);
                 writer.Flush();
                 stream.Position = 0;
-                result = new StreamContent(stream);
-                result.Headers.Add("Content-Type", "application/json");
             }
+            HttpContent result = new StreamContent(stream);
+            result.Headers.Add("Content-Type", "application/json");
             return result;
         }
 

@@ -138,10 +138,8 @@ namespace BrassLoon.RestClient
 
         private async Task<IResponse<T>> CreateResponseInternal<T>(HttpResponseMessage response)
         {
-            using (Stream stream = await response.Content.ReadAsStreamAsync())
-            {
-                return new Response<T>(response, JsonRequestContentBuilder.Deserialize<T>(stream));
-            }
+            IResponseFactory factory = new ResponseFactory();
+            return await factory.Create<T>(response);
         }
 
         public async Task<IResponse> Send(IRequest request, CancellationToken token = default)

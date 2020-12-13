@@ -54,6 +54,14 @@ namespace TestClient
                .AddPath("Tree");
             await service.Send(request);
             using IResponse<Result> rr = await service.Send<Result>(request);
+            request = service.CreateRequest(new Uri("http://localhost:5000/api"), HttpMethod.Get)
+               .AddPath("Tree/Name");
+            string name = (await service.Send<string>(request)).Value;
+            request = service.CreateRequest(new Uri("http://localhost:5000/api"), HttpMethod.Get)
+               .AddPath("Tree/Branch/{id}")
+               .AddPathParameter("id", "17")
+               ;
+            object br = (await service.Send<object>(request)).Value;
         }
 
         private static async Task Create()
