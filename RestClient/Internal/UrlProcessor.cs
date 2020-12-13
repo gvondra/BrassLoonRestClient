@@ -32,13 +32,15 @@ namespace BrassLoon.RestClient.Internal
         private Uri ReplacePathVariables(Uri addreess, Dictionary<string, string> parameters)
         {
             UriBuilder builder = new UriBuilder(addreess);
+            string path = WebUtility.UrlDecode(builder.Path);
             foreach (KeyValuePair<string, string> keyValue in parameters)
             {
-                builder.Path = builder.Path.Replace(
+                path = path.Replace(
                     $"{{{keyValue.Key}}}",
                     WebUtility.UrlEncode(keyValue.Value ?? string.Empty)
                     );
             }
+            builder.Path = path;
             return builder.Uri;
         }
 
