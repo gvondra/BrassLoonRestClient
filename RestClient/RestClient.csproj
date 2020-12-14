@@ -7,7 +7,7 @@
     <Product>Brass Loon</Product>
     <Description>Generic REST Web API Interface</Description>
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
-    <Version>1.0.0-prerelease.4</Version>
+    <Version>1.0.0-prerelease.5</Version>
     <PackageReleaseNotes />
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AssemblyName>BrassLoon.RestClient</AssemblyName>
@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="[12.0.1,13)" />
   </ItemGroup>
 
 </Project>

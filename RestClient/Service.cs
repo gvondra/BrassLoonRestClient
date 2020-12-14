@@ -129,11 +129,7 @@ namespace BrassLoon.RestClient
         {
             if (token == null)
                 token = DefaultCancellationTokenSource().Token;
-            HttpResponseMessage response = await getResponse(token);
-            if (!response.IsSuccessStatusCode)
-                Debug.WriteLine(await response.Content.ReadAsStringAsync());
-            if (!response.IsSuccessStatusCode) response.EnsureSuccessStatusCode();
-            return response;
+            return await getResponse(token);
         }
 
         private async Task<IResponse<T>> CreateResponseInternal<T>(HttpResponseMessage response)
@@ -148,12 +144,9 @@ namespace BrassLoon.RestClient
                 token = DefaultCancellationTokenSource().Token;
             using (HttpRequestMessage requestMessage = await request.MessageBuilder.Build())
             {
-                using (HttpResponseMessage responseMessage = await HttpClientBuilder.HttpClient.SendAsync(requestMessage, token))
-                {
-                    responseMessage.EnsureSuccessStatusCode();
-                    IResponseFactory responseFactory = request.MessageBuilder.CreateResponseFactory();
-                    return await responseFactory.Create(responseMessage);
-                }
+                HttpResponseMessage responseMessage = await HttpClientBuilder.HttpClient.SendAsync(requestMessage, token);
+                IResponseFactory responseFactory = request.MessageBuilder.CreateResponseFactory();
+                return await responseFactory.Create(responseMessage);
             }                
         }
 
@@ -164,7 +157,6 @@ namespace BrassLoon.RestClient
             using (HttpRequestMessage requestMessage = await request.MessageBuilder.Build())
             {
                 HttpResponseMessage responseMessage = await HttpClientBuilder.HttpClient.SendAsync(requestMessage, token);
-                if (!responseMessage.IsSuccessStatusCode) responseMessage.EnsureSuccessStatusCode();
                 IResponseFactory responseFactory = request.MessageBuilder.CreateResponseFactory();
                 return await responseFactory.Create<T>(responseMessage);
             }
