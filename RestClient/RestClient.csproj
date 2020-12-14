@@ -7,7 +7,7 @@
     <Product>Brass Loon</Product>
     <Description>Generic REST Web API Interface</Description>
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
-    <Version>1.0.0-prerelease.5</Version>
+    <Version>1.0.0-prerelease.6</Version>
     <PackageReleaseNotes />
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AssemblyName>BrassLoon.RestClient</AssemblyName>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 
@@ -16,6 +17,10 @@ namespace BrassLoon.RestClient.Internal
         }
 
         public HttpResponseMessage Message => _message;
+
+        public HttpStatusCode StatusCode => _message?.StatusCode ?? default(HttpStatusCode);
+
+        public bool IsSuccessStatusCode => _message?.IsSuccessStatusCode ?? false;
 
         protected virtual void Dispose(bool disposing)
         {
