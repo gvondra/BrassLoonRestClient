@@ -44,7 +44,7 @@ namespace BrassLoon.RestClient.Internal
             return builder.Uri;
         }
 
-        private Uri AppendQueryParameters(Uri addreess, Dictionary<string, string> parameters)
+        public Uri AppendQueryParameters(Uri addreess, Dictionary<string, string> parameters)
         {
             UriBuilder builder = new UriBuilder(addreess);
             foreach (KeyValuePair<string, string> keyValue in parameters)
