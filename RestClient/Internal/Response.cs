@@ -58,5 +58,7 @@ namespace BrassLoon.RestClient.Internal
         }
 
         public T Value => _value;
+
+        public string Text { get; set; }
     }
 }

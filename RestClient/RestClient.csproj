@@ -1,14 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+	<TargetFrameworks>net6.0;netstandard2.0</TargetFrameworks>
     <Authors>Greg Vondra</Authors>
     <Company />
     <Product>Brass Loon</Product>
     <Description>Generic REST Web API Interface</Description>
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
-    <Version>1.0.0</Version>
-    <PackageReleaseNotes />
+    <Version>1.1.0</Version>
+	<PackageReleaseNotes>
+      -v1.1 Add Text property to response
+	</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AssemblyName>BrassLoon.RestClient</AssemblyName>
     <RootNamespace>BrassLoon.RestClient</RootNamespace>
@@ -25,7 +27,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="[12.0.3,14.0.0)" />
   </ItemGroup>
 
 </Project>

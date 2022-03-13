@@ -15,5 +15,6 @@ namespace BrassLoon.RestClient
     public interface IResponse<T> : IResponse
     {
         T Value { get; }
+        string Text { get; }
     }
 }

@@ -19,16 +19,27 @@ namespace BrassLoon.RestClient.Internal
         public async Task<IResponse<T>> Create<T>(HttpResponseMessage responseMessage)
         {            
             T value = default(T);
-            switch (responseMessage.Content.Headers.ContentType.MediaType.ToLower())
+            string text = null;
+            if (responseMessage.Content.Headers.ContentLength.HasValue 
+                && responseMessage.Content.Headers.ContentLength.Value > 0L 
+                && responseMessage.Content.Headers.ContentType != null)
             {
-                case "text/plain":
-                    value = await CreateText<T>(responseMessage);
-                    break;
-                default:
-                    value = await CreateJson<T>(responseMessage);
-                    break;
+                switch (responseMessage.Content.Headers.ContentType.MediaType.ToLower())
+                {
+                    case "text/plain":
+                        text = await CreateText(responseMessage);
+                        if (typeof(string).Equals(typeof(T)))
+                            value = (T)Convert.ChangeType(text, typeof(T));
+                        break;
+                    default:
+                        value = await CreateJson<T>(responseMessage);
+                        break;
+                }
             }
-            return new Response<T>(responseMessage, value);
+            return new Response<T>(responseMessage, value)
+            { 
+                Text = text
+            };
         }
 
         private async Task<T> CreateJson<T>(HttpResponseMessage responseMessage)
@@ -41,16 +52,12 @@ namespace BrassLoon.RestClient.Internal
             return value;
         }
 
-        private async Task<T> CreateText<T>(HttpResponseMessage responseMessage)
+        private async Task<string> CreateText(HttpResponseMessage responseMessage)
         {
-            if (!typeof(string).Equals(typeof(T)))
-            {
-                throw new ApplicationException($"Invalid return type {typeof(T).Name} for text web response");
-            }
-            T value = default(T);
+            string value = default(string);
             using (Stream outStream = await responseMessage.Content.ReadAsStreamAsync())
             {
-                value = (T)Convert.ChangeType(TextRequestContentBuilder.Deserialize(outStream), typeof(T));
+                value = TextRequestContentBuilder.Deserialize(outStream);
             }
             return value;
         }
