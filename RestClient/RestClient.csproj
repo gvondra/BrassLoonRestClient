@@ -7,8 +7,9 @@
     <Product>Brass Loon</Product>
     <Description>Generic REST Web API Interface</Description>
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
-    <Version>1.1.0</Version>
+    <Version>2.0.0</Version>
 	<PackageReleaseNotes>
+	  -v2.0 Upgrade to Newtonsoft v13.0
       -v1.1 Add Text property to response
 	</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -27,7 +28,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="[12.0.3,14.0.0)" />
+    <PackageReference Include="Newtonsoft.Json" Version="[13.0.1,14.0.0)" />
   </ItemGroup>
 
 </Project>
