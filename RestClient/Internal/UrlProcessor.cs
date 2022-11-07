@@ -47,12 +47,24 @@ namespace BrassLoon.RestClient.Internal
         public Uri AppendQueryParameters(Uri addreess, Dictionary<string, string> parameters)
         {
             UriBuilder builder = new UriBuilder(addreess);
+            List<string> pairs = new List<string>();
+            if (!string.IsNullOrEmpty(builder.Query))
+                pairs.Add(builder.Query.TrimStart('?'));
             foreach (KeyValuePair<string, string> keyValue in parameters)
             {
-                string encoded = builder.Query.Length == 0 ? string.Empty : "&";
-                encoded += $"{WebUtility.UrlEncode(keyValue.Key)}={WebUtility.UrlEncode(keyValue.Value ?? string.Empty)}";
-                builder.Query += encoded;
+                pairs.Add($"{WebUtility.UrlEncode(keyValue.Key)}={WebUtility.UrlEncode(keyValue.Value ?? string.Empty)}");
             }
+            if (pairs.Count > 0)
+                /*
+                 * The UriBuilder's set query method behaves differently between .net core and .net framework
+                 * Both are trying to add a question mark to the begining. But they differ when there's 
+                 * already a question mark at the start of the string.
+                 * In .net framework, if the query string passed in starts with question mark then another 
+                 * question mark is pre-pended leaving you with 2 question marks. (these caused me issues)
+                 * In .net core, if the query string passed in starts with a question mark then no addition 
+                 * question mark is added.
+                 */
+                builder.Query = string.Join("&", pairs.ToArray());
             return builder.Uri;
         }
     }

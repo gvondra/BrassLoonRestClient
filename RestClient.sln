@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestClient", "TestClient\Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestApi", "TestApi\TestApi.csproj", "{1D3A506B-1A15-432C-ABDE-A730F4DAB0FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestClient.Test", "RestClient.Test\RestClient.Test.csproj", "{FFA56866-E560-419E-A145-32388727EA99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestClient.Test", "RestClient.Test\RestClient.Test.csproj", "{FFA56866-E560-419E-A145-32388727EA99}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
