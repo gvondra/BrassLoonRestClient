@@ -7,9 +7,11 @@
     <Product>Brass Loon</Product>
     <Description>Generic REST Web API Interface</Description>
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
-    <Version>3.0.0-prerelease.1</Version>
-    <AssemblyVersion>3.0.0.1</AssemblyVersion>
+    <Version>3.0.0</Version>
+    <AssemblyVersion>3.0.0.3</AssemblyVersion>
 	<PackageReleaseNotes>
+	  -v3.0 Added check for media type application/problem+json
+	        problem json is stored, as a string, in the Reponse&lt;T&gt;.Text property
 	  -v2.0.1 Fixed issue setting query strings when using .net framework
 	  -v2.0 Upgrade to Newtonsoft v13.0
       -v1.1 Add Text property to response

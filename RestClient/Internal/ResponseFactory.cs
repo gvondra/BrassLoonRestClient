@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
@@ -31,6 +33,11 @@ namespace BrassLoon.RestClient.Internal
                         if (typeof(string).Equals(typeof(T)))
                             value = (T)Convert.ChangeType(text, typeof(T));
                         break;
+                    case "application/problem+json":
+                        text = CreateJsonToText(
+                            await CreateJson(responseMessage)
+                            );
+                        break;
                     default:
                         value = await CreateJson<T>(responseMessage);
                         break;
@@ -48,6 +55,19 @@ namespace BrassLoon.RestClient.Internal
             using (Stream outStream = await responseMessage.Content.ReadAsStreamAsync())
             {
                 value = JsonRequestContentBuilder.Deserialize<T>(outStream);
+            }
+            return value;
+        }
+
+        private string CreateJsonToText(object json)
+        => JsonConvert.SerializeObject(json, new JsonSerializerSettings { ContractResolver = new DefaultContractResolver() });
+
+        private async Task<object> CreateJson(HttpResponseMessage responseMessage)
+        {
+            object value = null;
+            using (Stream outStream = await responseMessage.Content.ReadAsStreamAsync())
+            {
+                value = JsonRequestContentBuilder.Deserialize(outStream);
             }
             return value;
         }

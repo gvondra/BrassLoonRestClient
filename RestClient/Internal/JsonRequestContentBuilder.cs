@@ -54,5 +54,22 @@ namespace BrassLoon.RestClient.Internal
             }
             return value;
         }
+
+        public static object Deserialize(Stream stream)
+        {
+            object value = null;
+            if (stream != null && stream.Length > 0)
+            {
+                using (TextReader textReader = new StreamReader(stream))
+                {
+                    using (JsonReader reader = new JsonTextReader(textReader))
+                    {
+                        JsonSerializer serializer = new JsonSerializer() { ContractResolver = new DefaultContractResolver() };
+                        value = serializer.Deserialize(reader);
+                    }
+                }
+            }
+            return value;
+        }
     }
 }
