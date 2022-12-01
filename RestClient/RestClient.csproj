@@ -7,8 +7,8 @@
     <Product>Brass Loon</Product>
     <Description>Generic REST Web API Interface</Description>
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
-    <Version>2.0.1</Version>
-    <AssemblyVersion>2.0.1</AssemblyVersion>
+    <Version>3.0.0-prerelease.1</Version>
+    <AssemblyVersion>3.0.0.1</AssemblyVersion>
 	<PackageReleaseNotes>
 	  -v2.0.1 Fixed issue setting query strings when using .net framework
 	  -v2.0 Upgrade to Newtonsoft v13.0
