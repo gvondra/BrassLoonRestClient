@@ -22,6 +22,10 @@ namespace BrassLoon.RestClient.Internal
 
         public bool IsSuccessStatusCode => _message?.IsSuccessStatusCode ?? false;
 
+        public string Text { get; internal set; }
+
+        public object Json { get; internal set; }
+
         protected virtual void Dispose(bool disposing)
         {
             if (!_disposedValue)
@@ -34,7 +38,6 @@ namespace BrassLoon.RestClient.Internal
                         _message = null;
                     }
                 }
-
                 // set large fields to null
                 _disposedValue = true;
             }
@@ -58,7 +61,5 @@ namespace BrassLoon.RestClient.Internal
         }
 
         public T Value => _value;
-
-        public string Text { get; set; }
     }
 }

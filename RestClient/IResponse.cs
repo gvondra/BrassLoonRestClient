@@ -10,11 +10,18 @@ namespace BrassLoon.RestClient
         HttpStatusCode StatusCode { get; }
         HttpResponseMessage Message { get; }
         bool IsSuccessStatusCode { get; }
+        /// <summary>
+        /// For text/plain and application/problem+json responses, contains the message body text
+        /// </summary>
+        string Text { get; }
+        /// <summary>
+        /// For application/json responses, contains the response message body text
+        /// </summary>
+        object Json { get; }
     }
 
     public interface IResponse<T> : IResponse
     {
         T Value { get; }
-        string Text { get; }
     }
 }
