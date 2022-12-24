@@ -1,10 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BrassLoon.RestClient.Internal
@@ -13,15 +11,40 @@ namespace BrassLoon.RestClient.Internal
     {
         internal ResponseFactory() { }
 
-        public Task<IResponse> Create(HttpResponseMessage responseMessage)
+        public async Task<IResponse> Create(HttpResponseMessage responseMessage)
         {
-            return Task.FromResult<IResponse>(new Response(responseMessage));
+            string text = null;
+            object json = null;
+            if (responseMessage.Content.Headers.ContentLength.HasValue
+                && responseMessage.Content.Headers.ContentLength.Value > 0L
+                && responseMessage.Content.Headers.ContentType != null)
+            {
+                switch (responseMessage.Content.Headers.ContentType.MediaType.ToLower())
+                {
+                    case "text/plain":
+                        text = await CreateText(responseMessage);
+                        break;
+                    case "application/problem+json":
+                        json = await CreateJson(responseMessage);
+                        text = CreateJsonToText(json);
+                        break;
+                    case "application/json":
+                        json = await CreateJson(responseMessage);
+                        break;
+                }
+            }
+            return new Response(responseMessage)
+            {
+                Text = text,
+                Json = json
+            };
         }
 
         public async Task<IResponse<T>> Create<T>(HttpResponseMessage responseMessage)
         {            
             T value = default(T);
             string text = null;
+            object json = null;
             if (responseMessage.Content.Headers.ContentLength.HasValue 
                 && responseMessage.Content.Headers.ContentLength.Value > 0L 
                 && responseMessage.Content.Headers.ContentType != null)
@@ -34,19 +57,37 @@ namespace BrassLoon.RestClient.Internal
                             value = (T)Convert.ChangeType(text, typeof(T));
                         break;
                     case "application/problem+json":
-                        text = CreateJsonToText(
-                            await CreateJson(responseMessage)
-                            );
+                        json = await CreateJson(responseMessage);
+                        text = CreateJsonToText(json);
                         break;
                     default:
-                        value = await CreateJson<T>(responseMessage);
+                        CreateJsonResponse<T> createJsonResponse = await CreateJsonOnSuccess<T>(responseMessage);
+                        value = createJsonResponse.Value;
+                        json = createJsonResponse.Json;
                         break;
                 }
             }
             return new Response<T>(responseMessage, value)
             { 
-                Text = text
+                Text = text,
+                Json = json
             };
+        }
+
+        private async Task<CreateJsonResponse<T>> CreateJsonOnSuccess<T>(HttpResponseMessage responseMessage)
+        {
+            T value = default(T);
+            object json;
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                value = await CreateJson<T>(responseMessage);
+                json = value;
+            }
+            else
+            {
+                json = await CreateJson(responseMessage);
+            }
+            return new CreateJsonResponse<T> { Value = value, Json = json };
         }
 
         private async Task<T> CreateJson<T>(HttpResponseMessage responseMessage)
@@ -80,6 +121,12 @@ namespace BrassLoon.RestClient.Internal
                 value = TextRequestContentBuilder.Deserialize(outStream);
             }
             return value;
+        }
+
+        private struct CreateJsonResponse<T>
+        {
+            public T Value { get; set; }
+            public object Json { get; set; }
         }
     }
 }
