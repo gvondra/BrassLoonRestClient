@@ -7,8 +7,8 @@
     <Product>Brass Loon</Product>
     <Description>Generic REST Web API Interface</Description>
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
-    <Version>3.1.0-prerelease.1</Version>
-    <AssemblyVersion>3.1.0.1</AssemblyVersion>
+    <Version>3.1.0</Version>
+    <AssemblyVersion>3.1.0.2</AssemblyVersion>
 	<PackageReleaseNotes>
 	  -v3.1 Added Text and Json properties to IResponse
 	        Prevent response deserialization on fail responses.
