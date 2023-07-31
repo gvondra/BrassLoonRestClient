@@ -2,14 +2,17 @@
 
   <PropertyGroup>
 	<TargetFrameworks>net6.0;netstandard2.0</TargetFrameworks>
+	<Nullable>disable</Nullable>
+	<ImplicitUsings>disable</ImplicitUsings>
     <Authors>Greg Vondra</Authors>
     <Company />
     <Product>Brass Loon</Product>
     <Description>Generic REST Web API Interface</Description>
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
-    <Version>3.1.0</Version>
-    <AssemblyVersion>3.1.0.2</AssemblyVersion>
+    <Version>3.2.0</Version>
+    <AssemblyVersion>3.2.0.0</AssemblyVersion>
 	<PackageReleaseNotes>
+	  -v3.2 Added cancellation tokens to RestUtil API calls
 	  -v3.1 Added Text and Json properties to IResponse
 	        Prevent response deserialization on fail responses.
 			Add RestUtil class
