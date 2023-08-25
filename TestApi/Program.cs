@@ -1,26 +1,45 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
 
 namespace TestApi
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
-        }
+            WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
+            builder.Services.AddControllers(options =>
+            {
+                options.InputFormatters.Add(new CsvTextInputFormatter());
+                options.OutputFormatters.Add(new CsvTextOutputFormatter());
+            })
+                .AddNewtonsoftJson(o =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    o.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                })
+                .AddJsonOptions(o =>
+                {
+                    o.JsonSerializerOptions.PropertyNamingPolicy = null;
                 });
+
+            WebApplication app = builder.Build();
+
+            // Configure the HTTP request pipeline.
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+            app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
+
+            app.Run();
+        }
     }
 }

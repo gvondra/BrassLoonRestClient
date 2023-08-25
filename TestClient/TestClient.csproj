@@ -1,16 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Authors>Greg Vondra</Authors>
-    <Company />
-    <Product>Brass Loon</Product>
-    <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+		<Authors>Greg Vondra</Authors>
+		<Company />
+		<Product>Brass Loon</Product>
+		<PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\RestClient\RestClient.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\RestClient\RestClient.csproj" />
+	</ItemGroup>
 
 </Project>
