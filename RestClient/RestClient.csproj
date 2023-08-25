@@ -9,9 +9,10 @@
     <Product>Brass Loon</Product>
     <Description>Generic REST Web API Interface</Description>
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
-    <Version>3.2.0</Version>
-    <AssemblyVersion>3.2.0.0</AssemblyVersion>
+    <Version>3.3.0-prerelease.1</Version>
+    <AssemblyVersion>3.3.0.1</AssemblyVersion>
 	<PackageReleaseNotes>
+	  -v3.3 Switch to default cancellation tokens
 	  -v3.2 Added cancellation tokens to RestUtil API calls
 	  -v3.1 Added Text and Json properties to IResponse
 	        Prevent response deserialization on fail responses.
@@ -38,7 +39,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="[13.0.1,14.0.0)" />
+    <PackageReference Include="Newtonsoft.Json" Version="[13.0.2,14.0.0)" />
   </ItemGroup>
 
 </Project>
