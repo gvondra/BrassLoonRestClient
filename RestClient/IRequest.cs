@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BrassLoon.RestClient
@@ -8,7 +6,9 @@ namespace BrassLoon.RestClient
     public interface IRequest
     {
         IRequestMessageBuilder MessageBuilder { get; }
+        string Accept { get; set; }
 
+        IRequest AddBody(IRequestBody body);
         IRequest AddJsonBody(object body);
         IRequest AddHeader(string name, string value);
         IRequest AddPath(string path);

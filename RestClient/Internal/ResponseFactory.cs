@@ -22,6 +22,7 @@ namespace BrassLoon.RestClient.Internal
                 switch (responseMessage.Content.Headers.ContentType.MediaType.ToLower())
                 {
                     case "text/plain":
+                    case "text/csv":
                         text = await CreateText(responseMessage);
                         break;
                     case "application/problem+json":
@@ -52,6 +53,7 @@ namespace BrassLoon.RestClient.Internal
                 switch (responseMessage.Content.Headers.ContentType.MediaType.ToLower())
                 {
                     case "text/plain":
+                    case "text/csv":
                         text = await CreateText(responseMessage);
                         if (typeof(string).Equals(typeof(T)))
                             value = (T)Convert.ChangeType(text, typeof(T));

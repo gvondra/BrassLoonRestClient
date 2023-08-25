@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace BrassLoon.RestClient.Internal
@@ -31,6 +28,8 @@ namespace BrassLoon.RestClient.Internal
 
         private void AddHeaders(HttpRequestMessage requestMessage)
         {
+            if (!string.IsNullOrEmpty(_request.Accept))
+                requestMessage.Headers.Add("Accept", _request.Accept);
             foreach ((string, string) header in _request.Headers)
             {
                 requestMessage.Headers.Add(header.Item1, header.Item2);
