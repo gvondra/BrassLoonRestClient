@@ -18,7 +18,7 @@ namespace BrassLoon.RestClient
             return response.Value;
         }
 
-        public virtual async Task<T> Send<T>(IService service, IRequest request, CancellationToken? token = null)
+        public virtual async Task<T> Send<T>(IService service, IRequest request, CancellationToken token = default)
         {
             IResponse<T> response = await service.Send<T>(request, token);
             CheckSuccess(response);
@@ -32,7 +32,7 @@ namespace BrassLoon.RestClient
             return response.Value;
         }
 
-        public virtual async Task<T> Post<T>(IService service, Uri uri, object body, CancellationToken? token = null)
+        public virtual async Task<T> Post<T>(IService service, Uri uri, object body, CancellationToken token = default)
         {
             IResponse<T> response = await service.Post<T>(uri, body, token);
             CheckSuccess(response);
@@ -46,7 +46,7 @@ namespace BrassLoon.RestClient
             return response.Value;
         }
 
-        public virtual async Task<T> Get<T>(IService service, Uri uri, CancellationToken? token = null)
+        public virtual async Task<T> Get<T>(IService service, Uri uri, CancellationToken token = default)
         {
             IResponse<T> response = await service.Get<T>(uri, token);
             CheckSuccess(response);
