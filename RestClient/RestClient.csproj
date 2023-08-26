@@ -9,10 +9,10 @@
     <Product>Brass Loon</Product>
     <Description>Generic REST Web API Interface</Description>
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
-    <Version>3.3.0-prerelease.6</Version>
-    <AssemblyVersion>3.3.0.6</AssemblyVersion>
+    <Version>4.0.0-prerelease.1</Version>
+    <AssemblyVersion>4.0.0.1</AssemblyVersion>
 	<PackageReleaseNotes>
-	  -v3.3 Switch to default cancellation tokens
+	  -v4.0 Switch to default cancellation tokens
 	  -v3.2 Added cancellation tokens to RestUtil API calls
 	  -v3.1 Added Text and Json properties to IResponse
 	        Prevent response deserialization on fail responses.
@@ -21,7 +21,6 @@
 	        problem json is stored, as a string, in the Reponse&lt;T&gt;.Text property
 	  -v2.0.1 Fixed issue setting query strings when using .net framework
 	  -v2.0 Upgrade to Newtonsoft v13.0
-      -v1.1 Add Text property to response
 	</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AssemblyName>BrassLoon.RestClient</AssemblyName>

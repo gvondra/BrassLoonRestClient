@@ -9,8 +9,8 @@
 	  <Product>Brass Loon</Product>
 	  <Description>CSV extensions for Generic REST Web API Interface</Description>
 	  <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
-	  <Version>3.3.0-prerelease.1</Version>
-	  <AssemblyVersion>3.3.0.1</AssemblyVersion>
+	  <Version>4.0.0-prerelease.1</Version>
+	  <AssemblyVersion>4.0.0.1</AssemblyVersion>
 	  <PackageReleaseNotes></PackageReleaseNotes>
 	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	  <AssemblyName>BrassLoon.CsvRestClient</AssemblyName>
@@ -18,7 +18,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BrassLoon.RestClient" Version="3.3.0-prerelease.*" />
+    <PackageReference Include="BrassLoon.RestClient" Version="4.0.0-prerelease.*" />
     <PackageReference Include="CsvHelper" Version="[30.0.1,31.0)" />
   </ItemGroup>
 
