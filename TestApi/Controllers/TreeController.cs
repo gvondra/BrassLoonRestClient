@@ -37,5 +37,11 @@ namespace TestApi.Controllers
         {
             return Ok(Result);
         }
+
+        [HttpPost("Leaves")]
+        public IActionResult Post([FromBody] Leaves[] body)
+        {
+            return Ok(body);
+        }
     }
 }

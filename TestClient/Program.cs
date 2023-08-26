@@ -1,5 +1,8 @@
-﻿using BrassLoon.RestClient;
+﻿using BrassLoon.CsvRestClient;
+using BrassLoon.RestClient;
 using System;
+using System.Collections.Generic;
+using System.Dynamic;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -12,10 +15,11 @@ namespace TestClient
         {
             try
             {
-                await Delete();
-                await Get();
-                await Create();
-                await Update();
+                await PostArray();
+                //await Delete();
+                //await Get();
+                //await Create();
+                //await Update();
             }
             catch (Exception ex)
             {
@@ -84,6 +88,22 @@ namespace TestClient
                .AddJsonBody(new { Name = "Oak" });
             await service.Send(request);
             using IResponse<Result> rr = await service.Send<Result>(request);
+        }
+
+        private static async Task PostArray()
+        {
+            IService service = new Service();
+            IRequest request = service.CreateRequest(new Uri("http://localhost:5000/api"), HttpMethod.Post);
+            Leaves body = new Leaves { Id = "1441" };
+            request = request.AddPath("Tree/Leaves")
+                .AddCsvBody(new List<dynamic> { body })
+                .AcceptCSV();            
+            IResponse<List<Leaves>> r = await service.Send<List<Leaves>>(request);
+        }
+
+        public class Leaves
+        {
+            public string Id { get; set; }
         }
 
         public class Result
