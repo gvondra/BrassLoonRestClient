@@ -9,8 +9,8 @@
     <Product>Brass Loon</Product>
     <Description>Generic REST Web API Interface</Description>
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
-    <Version>3.3.0-prerelease.2</Version>
-    <AssemblyVersion>3.3.0.2</AssemblyVersion>
+    <Version>3.3.0-prerelease.6</Version>
+    <AssemblyVersion>3.3.0.6</AssemblyVersion>
 	<PackageReleaseNotes>
 	  -v3.3 Switch to default cancellation tokens
 	  -v3.2 Added cancellation tokens to RestUtil API calls

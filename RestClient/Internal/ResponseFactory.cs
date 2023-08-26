@@ -69,12 +69,15 @@ namespace BrassLoon.RestClient.Internal
                         break;
                 }
             }
-            return new Response<T>(responseMessage, value)
-            { 
+            return Create(responseMessage, value, text, json);
+        }
+
+        public IResponse<T> Create<T>(HttpResponseMessage responseMessage, T value, string text = null, object json = null)
+            => new Response<T>(responseMessage, value) 
+            {
                 Text = text,
                 Json = json
             };
-        }
 
         private async Task<CreateJsonResponse<T>> CreateJsonOnSuccess<T>(HttpResponseMessage responseMessage)
         {
