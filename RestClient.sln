@@ -6,12 +6,18 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestClient", "RestClient\RestClient.csproj", "{C72E4A94-0CFD-4FB6-BC8C-D8EFB041D4BC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestClient", "TestClient\TestClient.csproj", "{F6904A7D-4DF3-407A-8E36-59E8EC65CBEF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1D3A506B-1A15-432C-ABDE-A730F4DAB0FE} = {1D3A506B-1A15-432C-ABDE-A730F4DAB0FE}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestApi", "TestApi\TestApi.csproj", "{1D3A506B-1A15-432C-ABDE-A730F4DAB0FE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestClient.Test", "RestClient.Test\RestClient.Test.csproj", "{FFA56866-E560-419E-A145-32388727EA99}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CsvRestClient", "CsvRestClient\CsvRestClient.csproj", "{E21A6288-D2E4-4A83-B90B-A95C17A83186}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C72E4A94-0CFD-4FB6-BC8C-D8EFB041D4BC} = {C72E4A94-0CFD-4FB6-BC8C-D8EFB041D4BC}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{24C98CE4-BB5A-4ADA-A731-5AD51B904498}"
 	ProjectSection(SolutionItems) = preProject
