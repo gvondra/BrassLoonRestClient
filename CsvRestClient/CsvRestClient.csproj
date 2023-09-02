@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BrassLoon.RestClient" Version="4.0.0-prerelease.2" />
+    <PackageReference Include="BrassLoon.RestClient" Version="[4.0.0,5.0)" />
     <PackageReference Include="CsvHelper" Version="[30.0.1,31.0)" />
   </ItemGroup>
 
