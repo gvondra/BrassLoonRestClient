@@ -31,7 +31,7 @@ namespace BrassLoon.CsvRestClient.Internal
                 && responseMessage.Content.Headers.ContentLength.Value > 0L
                 && responseMessage.Content.Headers.ContentType != null)
             {
-                switch (responseMessage.Content.Headers.ContentType.MediaType.ToLower())
+                switch (responseMessage.Content.Headers.ContentType.MediaType.ToLower(CultureInfo.InvariantCulture))
                 {
                     case "text/csv":
                         (T Value, string Text) valueText = await Deserialize<T>(responseMessage);
@@ -81,7 +81,7 @@ namespace BrassLoon.CsvRestClient.Internal
                     {
                         records.Add(record);
                     }
-                }   
+                }
             }
             if (isArray)
             {

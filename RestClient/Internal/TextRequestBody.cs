@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BrassLoon.RestClient.Internal
+﻿namespace BrassLoon.RestClient.Internal
 {
     public sealed class TextRequestBody : IRequestBody
     {
@@ -15,9 +11,6 @@ namespace BrassLoon.RestClient.Internal
 
         public string Body => _body;
 
-        public IRequestContentBuilder CreateContentBuilder()
-        {
-            return new TextRequestContentBuilder(this);
-        }
+        public IRequestContentBuilder CreateContentBuilder() => new TextRequestContentBuilder(this);
     }
 }

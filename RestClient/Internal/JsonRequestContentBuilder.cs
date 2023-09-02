@@ -14,13 +14,10 @@ namespace BrassLoon.RestClient.Internal
             _body = body;
         }
 
-        public HttpContent Build()
-        {
-            return Build(_body?.Body);
-        }
+        public HttpContent Build() => Build(_body?.Body);
 
         public static HttpContent Build(object body)
-        {            
+        {
             MemoryStream stream = new MemoryStream();
             if (body != null)
             {

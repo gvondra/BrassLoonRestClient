@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -58,8 +59,8 @@ namespace BrassLoon.RestClient
             Exception exception;
             if (!response.IsSuccessStatusCode)
             {
-                char indicator = ((int)response.StatusCode).ToString()[0];
-                if (indicator == '4')                    
+                char indicator = ((int)response.StatusCode).ToString(CultureInfo.InvariantCulture)[0];
+                if (indicator == '4')
                     exception = new RequestError(response);
                 else
                     exception = new ServerError(response);
@@ -69,14 +70,14 @@ namespace BrassLoon.RestClient
             }
         }
 
-        private IDictionary AddRequestAddress(IDictionary data, HttpResponseMessage httpResponseMessage)
+        private static IDictionary AddRequestAddress(IDictionary data, HttpResponseMessage httpResponseMessage)
         {
             if (httpResponseMessage?.RequestMessage?.RequestUri != null)
                 data["RequestAddress"] = httpResponseMessage.RequestMessage.RequestUri.ToString();
             return data;
         }
 
-        private IDictionary AddText(IDictionary data, IResponse response)
+        private static IDictionary AddText(IDictionary data, IResponse response)
         {
             if (response?.Text != null)
                 data["Text"] = response.Text;

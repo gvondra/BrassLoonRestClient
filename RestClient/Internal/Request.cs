@@ -14,11 +14,11 @@ namespace BrassLoon.RestClient.Internal
         private readonly List<string> _paths = new List<string>();
         private readonly Dictionary<string, string> _pathParameters = new Dictionary<string, string>();
         private readonly Dictionary<string, string> _queryParameters = new Dictionary<string, string>();
-        private Func<Task<string>> _getJwtAuthorizationToken = null;
-        private IRequestBody _requestBody = null;
+        private Func<Task<string>> _getJwtAuthorizationToken;
+        private IRequestBody _requestBody;
 
         internal Request(
-            Uri baseAddress, 
+            Uri baseAddress,
             HttpMethod method
             )
         {

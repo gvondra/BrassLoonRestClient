@@ -11,7 +11,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestApi", "TestApi\TestApi.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestClient.Test", "RestClient.Test\RestClient.Test.csproj", "{FFA56866-E560-419E-A145-32388727EA99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvRestClient", "CsvRestClient\CsvRestClient.csproj", "{E21A6288-D2E4-4A83-B90B-A95C17A83186}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CsvRestClient", "CsvRestClient\CsvRestClient.csproj", "{E21A6288-D2E4-4A83-B90B-A95C17A83186}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{24C98CE4-BB5A-4ADA-A731-5AD51B904498}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

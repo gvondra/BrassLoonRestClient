@@ -8,16 +8,10 @@ using System.Threading.Tasks;
 namespace BrassLoon.RestClient
 {
     public class Service : IService
-    {        
-        public void CancelPendingRequests()
-        {
-            HttpClientBuilder.HttpClient.CancelPendingRequests();
-        }
+    {
+        public void CancelPendingRequests() => HttpClientBuilder.HttpClient.CancelPendingRequests();
 
-        public IRequest CreateRequest(Uri address, HttpMethod method)
-        {
-            return new Request(address, method);
-        }
+        public IRequest CreateRequest(Uri address, HttpMethod method) => new Request(address, method);
 
         public IRequest CreateRequest(Uri address, HttpMethod method, object body)
         {
@@ -36,7 +30,7 @@ namespace BrassLoon.RestClient
         {
             return await CreateResponseInternal<T>(
                 await GetWebResponseInternal(async tkn => await HttpClientBuilder.HttpClient.DeleteAsync(uri, tkn),
-                token)); 
+                token));
         }
 
         public async Task<IResponse> Get(Uri uri, CancellationToken token = default)
@@ -53,20 +47,11 @@ namespace BrassLoon.RestClient
                 token));
         }
 
-        public async Task<byte[]> GetBytes(Uri uri)
-        {
-            return await HttpClientBuilder.HttpClient.GetByteArrayAsync(uri);
-        }
+        public async Task<byte[]> GetBytes(Uri uri) => await HttpClientBuilder.HttpClient.GetByteArrayAsync(uri);
 
-        public async Task<Stream> GetStream(Uri uri)
-        {
-            return await HttpClientBuilder.HttpClient.GetStreamAsync(uri);
-        }
+        public async Task<Stream> GetStream(Uri uri) => await HttpClientBuilder.HttpClient.GetStreamAsync(uri);
 
-        public async Task<string> GetString(Uri uri)
-        {
-            return await HttpClientBuilder.HttpClient.GetStringAsync(uri);
-        }
+        public async Task<string> GetString(Uri uri) => await HttpClientBuilder.HttpClient.GetStringAsync(uri);
 
         public async Task<IResponse> Post(Uri uri, object body = null, CancellationToken token = default)
         {
@@ -120,12 +105,12 @@ namespace BrassLoon.RestClient
                 token));
         }
 
-        private async Task<HttpResponseMessage> GetWebResponseInternal(Func<CancellationToken, Task<HttpResponseMessage>> getResponse, CancellationToken token = default)
-        {
-            return await getResponse(token);
-        }
+        private static async Task<HttpResponseMessage> GetWebResponseInternal(
+            Func<CancellationToken, Task<HttpResponseMessage>> getResponse,
+            CancellationToken token = default)
+            => await getResponse(token);
 
-        private async Task<IResponse<T>> CreateResponseInternal<T>(HttpResponseMessage response)
+        private static async Task<IResponse<T>> CreateResponseInternal<T>(HttpResponseMessage response)
         {
             IResponseFactory factory = new ResponseFactory();
             return await factory.Create<T>(response);
@@ -138,7 +123,7 @@ namespace BrassLoon.RestClient
                 HttpResponseMessage responseMessage = await HttpClientBuilder.HttpClient.SendAsync(requestMessage, token);
                 IResponseFactory responseFactory = request.MessageBuilder.CreateResponseFactory();
                 return await responseFactory.Create(responseMessage);
-            }                
+            }
         }
 
         public async Task<IResponse<T>> Send<T>(IRequest request, CancellationToken token = default)

@@ -15,6 +15,6 @@ namespace BrassLoon.RestClient
         IRequest AddPathParameter(string name, string value);
         IRequest AddQueryParameter(string name, string value);
         IRequest AddJwtAuthorizationToken(Func<string> getToken);
-        IRequest AddJwtAuthorizationToken(Func<Task<string>> getToken);        
+        IRequest AddJwtAuthorizationToken(Func<Task<string>> getToken);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
+using System.Globalization;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace BrassLoon.RestClient.Internal
                 && responseMessage.Content.Headers.ContentLength.Value > 0L
                 && responseMessage.Content.Headers.ContentType != null)
             {
-                switch (responseMessage.Content.Headers.ContentType.MediaType.ToLower())
+                switch (responseMessage.Content.Headers.ContentType.MediaType.ToLower(CultureInfo.InvariantCulture))
                 {
                     case "text/plain":
                     case "text/csv":
@@ -42,21 +43,21 @@ namespace BrassLoon.RestClient.Internal
         }
 
         public async Task<IResponse<T>> Create<T>(HttpResponseMessage responseMessage)
-        {            
+        {
             T value = default(T);
             string text = null;
             object json = null;
-            if (responseMessage.Content.Headers.ContentLength.HasValue 
-                && responseMessage.Content.Headers.ContentLength.Value > 0L 
+            if (responseMessage.Content.Headers.ContentLength.HasValue
+                && responseMessage.Content.Headers.ContentLength.Value > 0L
                 && responseMessage.Content.Headers.ContentType != null)
             {
-                switch (responseMessage.Content.Headers.ContentType.MediaType.ToLower())
+                switch (responseMessage.Content.Headers.ContentType.MediaType.ToLower(CultureInfo.InvariantCulture))
                 {
                     case "text/plain":
                     case "text/csv":
                         text = await CreateText(responseMessage);
                         if (typeof(string).Equals(typeof(T)))
-                            value = (T)Convert.ChangeType(text, typeof(T));
+                            value = (T)Convert.ChangeType(text, typeof(T), CultureInfo.InvariantCulture);
                         break;
                     case "application/problem+json":
                         json = await CreateJson(responseMessage);
@@ -73,13 +74,13 @@ namespace BrassLoon.RestClient.Internal
         }
 
         public IResponse<T> Create<T>(HttpResponseMessage responseMessage, T value, string text = null, object json = null)
-            => new Response<T>(responseMessage, value) 
+            => new Response<T>(responseMessage, value)
             {
                 Text = text,
                 Json = json
             };
 
-        private async Task<CreateJsonResponse<T>> CreateJsonOnSuccess<T>(HttpResponseMessage responseMessage)
+        private static async Task<CreateJsonResponse<T>> CreateJsonOnSuccess<T>(HttpResponseMessage responseMessage)
         {
             T value = default(T);
             object json;
@@ -95,7 +96,7 @@ namespace BrassLoon.RestClient.Internal
             return new CreateJsonResponse<T> { Value = value, Json = json };
         }
 
-        private async Task<T> CreateJson<T>(HttpResponseMessage responseMessage)
+        private static async Task<T> CreateJson<T>(HttpResponseMessage responseMessage)
         {
             T value = default(T);
             using (Stream outStream = await responseMessage.Content.ReadAsStreamAsync())
@@ -105,10 +106,10 @@ namespace BrassLoon.RestClient.Internal
             return value;
         }
 
-        private string CreateJsonToText(object json)
-        => JsonConvert.SerializeObject(json, new JsonSerializerSettings { ContractResolver = new DefaultContractResolver() });
+        private static string CreateJsonToText(object json)
+            => JsonConvert.SerializeObject(json, new JsonSerializerSettings { ContractResolver = new DefaultContractResolver() });
 
-        private async Task<object> CreateJson(HttpResponseMessage responseMessage)
+        private static async Task<object> CreateJson(HttpResponseMessage responseMessage)
         {
             object value = null;
             using (Stream outStream = await responseMessage.Content.ReadAsStreamAsync())
@@ -118,7 +119,7 @@ namespace BrassLoon.RestClient.Internal
             return value;
         }
 
-        private async Task<string> CreateText(HttpResponseMessage responseMessage)
+        private static async Task<string> CreateText(HttpResponseMessage responseMessage)
         {
             string value = default(string);
             using (Stream outStream = await responseMessage.Content.ReadAsStreamAsync())

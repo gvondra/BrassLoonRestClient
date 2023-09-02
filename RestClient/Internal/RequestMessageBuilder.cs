@@ -1,11 +1,11 @@
-﻿using System.Net.Http;
+﻿using System.Globalization;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace BrassLoon.RestClient.Internal
 {
     public sealed class RequestMessageBuilder : IRequestMessageBuilder
     {
-        private readonly UrlProcessor _urlProcessor = new UrlProcessor();
         private readonly Request _request;
 
         internal RequestMessageBuilder(Request request)
@@ -15,12 +15,12 @@ namespace BrassLoon.RestClient.Internal
 
         public async Task<HttpRequestMessage> Build()
         {
-            HttpRequestMessage requestMessage = new HttpRequestMessage(_request.Method, _urlProcessor.CreateUri(_request));
+            HttpRequestMessage requestMessage = new HttpRequestMessage(_request.Method, UrlProcessor.CreateUri(_request));
             AddHeaders(requestMessage);
             if (_request.RequestBody != null)
                 requestMessage.Content = _request.RequestBody.CreateContentBuilder().Build();
             if (_request.GetJwtAuthorizationToken != null)
-                requestMessage.Headers.Add("Authorization", string.Format("Bearer {0}", await _request.GetJwtAuthorizationToken()));
+                requestMessage.Headers.Add("Authorization", string.Format(CultureInfo.InvariantCulture, "Bearer {0}", await _request.GetJwtAuthorizationToken()));
             return requestMessage;
         }
 

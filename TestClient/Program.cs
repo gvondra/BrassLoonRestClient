@@ -2,7 +2,6 @@
 using BrassLoon.RestClient;
 using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -11,6 +10,7 @@ namespace TestClient
 {
     public static class Program
     {
+#pragma warning disable IDE0051 // Remove unused private members
         public static async Task Main()
         {
             try
@@ -24,7 +24,7 @@ namespace TestClient
             catch (Exception ex)
             {
                 Console.Error.WriteLine(ex.ToString());
-            }            
+            }
         }
 
         private static async Task Delete()
@@ -41,7 +41,7 @@ namespace TestClient
         private static async Task Get()
         {
             IService service = new Service();
-            await service.Get(new Uri("http://localhost:5000/api/Tree")); 
+            await service.Get(new Uri("http://localhost:5000/api/Tree"));
             using IResponse<Result> r = await service.Get<Result>(new Uri("http://localhost:5000/api/Tree"));
             string s = await service.GetString(new Uri("http://localhost:5000/api/Tree/Name"));
             byte[] b = await service.GetBytes(new Uri("http://localhost:5000/api/Tree/Name"));
@@ -97,7 +97,7 @@ namespace TestClient
             Leaves body = new Leaves { Id = "1441" };
             request = request.AddPath("Tree/Leaves")
                 .AddCsvBody(new List<dynamic> { body })
-                .AcceptCSV();            
+                .AcceptCSV();
             IResponse<List<Leaves>> r = await service.Send<List<Leaves>>(request);
         }
 
@@ -110,5 +110,6 @@ namespace TestClient
         {
             public string Name { get; set; }
         }
+#pragma warning restore IDE0051 // Remove unused private members
     }
 }

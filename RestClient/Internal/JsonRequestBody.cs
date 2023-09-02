@@ -11,9 +11,6 @@
 
         public object Body => _body;
 
-        public IRequestContentBuilder CreateContentBuilder()
-        {
-            return new JsonRequestContentBuilder(this);
-        }
+        public IRequestContentBuilder CreateContentBuilder() => new JsonRequestContentBuilder(this);
     }
 }

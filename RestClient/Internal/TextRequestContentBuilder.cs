@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Net.Http;
 using System.Text;
 
@@ -15,10 +13,7 @@ namespace BrassLoon.RestClient.Internal
             _body = body;
         }
 
-        public HttpContent Build()
-        {
-            return Build(_body?.Body);
-        }
+        public HttpContent Build() => Build(_body?.Body);
 
         public static HttpContent Build(string body)
         {

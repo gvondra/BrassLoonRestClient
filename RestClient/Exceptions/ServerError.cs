@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BrassLoon.RestClient.Exceptions
+﻿namespace BrassLoon.RestClient.Exceptions
 {
     /// <summary>
     /// Thrown on 500 errors

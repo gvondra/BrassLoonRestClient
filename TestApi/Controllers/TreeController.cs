@@ -6,42 +6,24 @@ namespace TestApi.Controllers
     [ApiController]
     public class TreeController : ControllerBase
     {
-        private static dynamic Result = new { Name = "Maple" };
+        private static readonly dynamic Result = new { Name = "Maple" };
 
         [HttpDelete()]
-        public IActionResult Delete()
-        {
-            return Ok(Result);
-        }
+        public IActionResult Delete() => Ok(Result);
 
         [HttpGet()]
-        public IActionResult Get()
-        {
-            return Ok(Result);
-        }
+        public IActionResult Get() => Ok(Result);
 
         [HttpGet("Name")]
-        public IActionResult GetName()
-        {
-            return Content(Result.Name, "text/plain");
-        }
+        public IActionResult GetName() => Content(Result.Name, "text/plain");
 
         [HttpGet("Branch/{id}")]
-        public IActionResult GetBranch(string id)
-        {
-            return Ok(new { Branch = 404, Id = id });
-        }
+        public IActionResult GetBranch(string id) => Ok(new { Branch = 404, Id = id });
 
         [HttpPost(), HttpPut()]
-        public IActionResult Create([FromBody] dynamic body)
-        {
-            return Ok(Result);
-        }
+        public IActionResult Create([FromBody] dynamic body) => Ok(Result);
 
         [HttpPost("Leaves")]
-        public IActionResult Post([FromBody] Leaves[] body)
-        {
-            return Ok(body);
-        }
+        public IActionResult Post([FromBody] Leaves[] body) => Ok(body);
     }
 }

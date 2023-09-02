@@ -13,9 +13,6 @@ namespace BrassLoon.CsvRestClient.Internal
 
         public object Body => _body;
 
-        public IRequestContentBuilder CreateContentBuilder()
-        {
-            return new CsvRequestContentBuilder(this);
-        }
+        public IRequestContentBuilder CreateContentBuilder() => new CsvRequestContentBuilder(this);
     }
 }

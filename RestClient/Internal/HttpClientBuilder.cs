@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 
 namespace BrassLoon.RestClient.Internal
 {
     internal sealed class HttpClientBuilder
     {
-        private readonly static HttpClient _httpClient;
+        private static readonly HttpClient _httpClient;
 
         static HttpClientBuilder()
         {
@@ -19,7 +17,7 @@ namespace BrassLoon.RestClient.Internal
                     UseCookies = false,
                     UseDefaultCredentials = true
                 })
-            {                
+            {
                 Timeout = TimeSpan.FromMinutes(5)
             };
         }

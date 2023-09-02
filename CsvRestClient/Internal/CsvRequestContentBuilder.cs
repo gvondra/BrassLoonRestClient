@@ -37,11 +37,13 @@ namespace BrassLoon.CsvRestClient.Internal
 
         private static void Serialize(Stream stream, object body)
         {
+#pragma warning disable IDE0078 // Use pattern matching
+#pragma warning disable IDE0083 // Use pattern matching
             bool writeHeader = true;
             if (!(body is IEnumerable))
                 body = new List<object> { body };
             using (StreamWriter streamWriter = new StreamWriter(stream, Encoding.UTF8, 10240, true))
-            {   
+            {
                 using (CsvWriter writer = new CsvWriter(streamWriter, CultureInfo.InvariantCulture, true))
                 {
                     TypeConverterOptions typeConverterOptions = new TypeConverterOptions { Formats = new string[] { "O" } };
@@ -61,7 +63,9 @@ namespace BrassLoon.CsvRestClient.Internal
                     }
                     writer.Flush();
                 }
-            }                
+            }
+#pragma warning restore IDE0083 // Use pattern matching
+#pragma warning restore IDE0078 // Use pattern matching
         }
     }
 }

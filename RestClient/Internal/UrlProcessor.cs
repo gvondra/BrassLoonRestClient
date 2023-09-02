@@ -5,9 +5,9 @@ using System.Net;
 
 namespace BrassLoon.RestClient.Internal
 {
-    public sealed class UrlProcessor
+    public static class UrlProcessor
     {
-        public Uri CreateUri(Request request)
+        public static Uri CreateUri(Request request)
         {
             Uri address = request.BaseAddress;
             if (request.Paths.Count > 0)
@@ -19,7 +19,7 @@ namespace BrassLoon.RestClient.Internal
             return address;
         }
 
-        private Uri AppendPaths(Uri addreess, List<string> paths)
+        private static Uri AppendPaths(Uri addreess, List<string> paths)
         {
             UriBuilder builder = new UriBuilder(addreess);
             builder.Path = string.Join("/",
@@ -29,7 +29,7 @@ namespace BrassLoon.RestClient.Internal
             return builder.Uri;
         }
 
-        private Uri ReplacePathVariables(Uri addreess, Dictionary<string, string> parameters)
+        private static Uri ReplacePathVariables(Uri addreess, Dictionary<string, string> parameters)
         {
             UriBuilder builder = new UriBuilder(addreess);
             string path = WebUtility.UrlDecode(builder.Path);
@@ -44,7 +44,7 @@ namespace BrassLoon.RestClient.Internal
             return builder.Uri;
         }
 
-        public Uri AppendQueryParameters(Uri addreess, Dictionary<string, string> parameters)
+        public static Uri AppendQueryParameters(Uri addreess, Dictionary<string, string> parameters)
         {
             UriBuilder builder = new UriBuilder(addreess);
             List<string> pairs = new List<string>();
