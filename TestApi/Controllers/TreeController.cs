@@ -14,6 +14,15 @@ namespace TestApi.Controllers
         [HttpGet()]
         public IActionResult Get() => Ok(Result);
 
+        [HttpGet("Empty")]
+        public IActionResult GetEmpty() => Ok();
+
+        [HttpGet("Null")]
+        public IActionResult GetNull() => Ok(null);
+
+        [HttpGet("NoContent")]
+        public IActionResult GetNoContent() => NoContent();
+
         [HttpGet("Name")]
         public IActionResult GetName() => Content(Result.Name, "text/plain");
 

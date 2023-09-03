@@ -15,7 +15,8 @@ namespace TestClient
         {
             try
             {
-                await PostArray();
+                await GetNoContent();
+                //await PostArray();
                 //await Delete();
                 //await Get();
                 //await Create();
@@ -36,6 +37,17 @@ namespace TestClient
                 .AddPath("Tree");
             await service.Send(request);
             using IResponse<Result> rr = await service.Send<Result>(request);
+        }
+
+        private static async Task GetNoContent()
+        {
+            IService service = new Service();
+            IRequest request = service.CreateRequest(new Uri("http://localhost:5000/api/Tree/Empty"), HttpMethod.Get);
+            await service.Send(request);
+            request = service.CreateRequest(new Uri("http://localhost:5000/api/Tree/Null"), HttpMethod.Get);
+            await service.Send(request);
+            request = service.CreateRequest(new Uri("http://localhost:5000/api/Tree/NoContent"), HttpMethod.Get);
+            await service.Send(request);
         }
 
         private static async Task Get()
