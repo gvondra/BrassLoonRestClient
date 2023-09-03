@@ -3,6 +3,7 @@ using Newtonsoft.Json.Serialization;
 using System;
 using System.Globalization;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -16,9 +17,7 @@ namespace BrassLoon.RestClient.Internal
         {
             string text = null;
             object json = null;
-            if (responseMessage.Content.Headers.ContentLength.HasValue
-                && responseMessage.Content.Headers.ContentLength.Value > 0L
-                && responseMessage.Content.Headers.ContentType != null)
+            if (!GetNoMessageContent(responseMessage))
             {
                 switch (responseMessage.Content.Headers.ContentType.MediaType.ToLower(CultureInfo.InvariantCulture))
                 {
@@ -47,9 +46,7 @@ namespace BrassLoon.RestClient.Internal
             T value = default(T);
             string text = null;
             object json = null;
-            if (responseMessage.Content.Headers.ContentLength.HasValue
-                && responseMessage.Content.Headers.ContentLength.Value > 0L
-                && responseMessage.Content.Headers.ContentType != null)
+            if (!GetNoMessageContent(responseMessage))
             {
                 switch (responseMessage.Content.Headers.ContentType.MediaType.ToLower(CultureInfo.InvariantCulture))
                 {
@@ -71,6 +68,14 @@ namespace BrassLoon.RestClient.Internal
                 }
             }
             return Create(responseMessage, value, text, json);
+        }
+
+        private bool GetNoMessageContent(HttpResponseMessage responseMessage)
+        {
+            return (responseMessage.Content.Headers.ContentLength.HasValue
+                && responseMessage.Content.Headers.ContentLength.Value == 0L)
+                || responseMessage.Content.Headers.ContentType == null
+                || responseMessage.StatusCode == HttpStatusCode.NoContent;
         }
 
         public IResponse<T> Create<T>(HttpResponseMessage responseMessage, T value, string text = null, object json = null)
