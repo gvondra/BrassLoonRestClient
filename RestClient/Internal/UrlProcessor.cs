@@ -19,7 +19,7 @@ namespace BrassLoon.RestClient.Internal
             return address;
         }
 
-        private static Uri AppendPaths(Uri addreess, List<string> paths)
+        public static Uri AppendPaths(Uri addreess, List<string> paths)
         {
             UriBuilder builder = new UriBuilder(addreess);
             builder.Path = string.Join("/",
