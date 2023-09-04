@@ -16,11 +16,11 @@ namespace TestClient
             try
             {
                 await GetNoContent();
-                //await PostArray();
-                //await Delete();
-                //await Get();
-                //await Create();
-                //await Update();
+                await PostArray();
+                await Delete();
+                await Get();
+                await Create();
+                await Update();
             }
             catch (Exception ex)
             {

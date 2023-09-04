@@ -6,6 +6,8 @@ namespace BrassLoon.RestClient
     public interface IRequest
     {
         IRequestMessageBuilder MessageBuilder { get; }
+        Uri BaseAddress { get; }
+        TimeSpan? Timeout { get; }
         string Accept { get; set; }
 
         IRequest AddBody(IRequestBody body);
