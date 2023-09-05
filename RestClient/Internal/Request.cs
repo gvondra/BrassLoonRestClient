@@ -62,6 +62,12 @@ namespace BrassLoon.RestClient.Internal
         public IRequest AddJsonBody(object body)
             => AddBody(new JsonRequestBody(body));
 
+        public IRequest AddJwtAuthorizationToken(string token)
+        {
+            _getJwtAuthorizationToken = () => Task.FromResult(token);
+            return this;
+        }
+
         public IRequest AddJwtAuthorizationToken(Func<string> getToken)
         {
             _getJwtAuthorizationToken = () => Task.FromResult(getToken());
