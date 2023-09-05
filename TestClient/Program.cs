@@ -10,7 +10,9 @@ namespace TestClient
 {
     public static class Program
     {
-#pragma warning disable IDE0051 // Remove unused private members
+#pragma warning disable IDE0059 // Unnecessary assignment of a value
+#pragma warning disable S1075 // URIs should not be hardcoded
+#pragma warning disable S1481 // Unused local variables should be removed
         public static async Task Main()
         {
             try
@@ -122,6 +124,8 @@ namespace TestClient
         {
             public string Name { get; set; }
         }
-#pragma warning restore IDE0051 // Remove unused private members
+#pragma warning restore S1481 // Unused local variables should be removed
+#pragma warning restore S1075 // URIs should not be hardcoded
+#pragma warning restore IDE0059 // Unnecessary assignment of a value
     }
 }

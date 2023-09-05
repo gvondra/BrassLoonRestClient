@@ -10,7 +10,7 @@ namespace BrassLoon.RestClient.Internal
         private readonly IRequestMessageBuilder _requestMessageBuilder;
         private readonly Uri _baseAddress;
         private readonly TimeSpan? _timeout;
-        private readonly HttpMethod _method = HttpMethod.Get;
+        private readonly HttpMethod _method;
         private readonly List<(string, string)> _headers = new List<(string, string)>();
         private readonly List<string> _paths = new List<string>();
         private readonly Dictionary<string, string> _pathParameters = new Dictionary<string, string>();

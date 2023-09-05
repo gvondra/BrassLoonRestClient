@@ -5,7 +5,7 @@ using System.Net.Http;
 
 namespace BrassLoon.RestClient.Internal
 {
-    internal sealed class HttpClientBuilder
+    internal static class HttpClientBuilder
     {
         private static readonly TimeSpan _defaultTimout = TimeSpan.FromMinutes(5);
         private static readonly Dictionary<double, HttpClient> _httpClients = new Dictionary<double, HttpClient>();

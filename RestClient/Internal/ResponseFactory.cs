@@ -70,20 +70,20 @@ namespace BrassLoon.RestClient.Internal
             return Create(responseMessage, value, text, json);
         }
 
-        private bool GetNoMessageContent(HttpResponseMessage responseMessage)
-        {
-            return (responseMessage.Content.Headers.ContentLength.HasValue
-                && responseMessage.Content.Headers.ContentLength.Value == 0L)
-                || responseMessage.Content.Headers.ContentType == null
-                || responseMessage.StatusCode == HttpStatusCode.NoContent;
-        }
-
         public IResponse<T> Create<T>(HttpResponseMessage responseMessage, T value, string text = null, object json = null)
             => new Response<T>(responseMessage, value)
             {
                 Text = text,
                 Json = json
             };
+
+        private static bool GetNoMessageContent(HttpResponseMessage responseMessage)
+        {
+            return (responseMessage.Content.Headers.ContentLength.HasValue
+                && responseMessage.Content.Headers.ContentLength.Value == 0L)
+                || responseMessage.Content.Headers.ContentType == null
+                || responseMessage.StatusCode == HttpStatusCode.NoContent;
+        }
 
         private static async Task<CreateJsonResponse<T>> CreateJsonOnSuccess<T>(HttpResponseMessage responseMessage)
         {
@@ -101,6 +101,9 @@ namespace BrassLoon.RestClient.Internal
             return new CreateJsonResponse<T> { Value = value, Json = json };
         }
 
+        private static string CreateJsonToText(object json)
+            => JsonConvert.SerializeObject(json, new JsonSerializerSettings { ContractResolver = new DefaultContractResolver() });
+
         private static async Task<T> CreateJson<T>(HttpResponseMessage responseMessage)
         {
             T value = default(T);
@@ -110,9 +113,6 @@ namespace BrassLoon.RestClient.Internal
             }
             return value;
         }
-
-        private static string CreateJsonToText(object json)
-            => JsonConvert.SerializeObject(json, new JsonSerializerSettings { ContractResolver = new DefaultContractResolver() });
 
         private static async Task<object> CreateJson(HttpResponseMessage responseMessage)
         {
