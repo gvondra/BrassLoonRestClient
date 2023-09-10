@@ -9,7 +9,8 @@ namespace BrassLoon.RestClient.Internal
     {
         private readonly IRequestMessageBuilder _requestMessageBuilder;
         private readonly Uri _baseAddress;
-        private readonly HttpMethod _method = HttpMethod.Get;
+        private readonly TimeSpan? _timeout;
+        private readonly HttpMethod _method;
         private readonly List<(string, string)> _headers = new List<(string, string)>();
         private readonly List<string> _paths = new List<string>();
         private readonly Dictionary<string, string> _pathParameters = new Dictionary<string, string>();
@@ -19,17 +20,25 @@ namespace BrassLoon.RestClient.Internal
 
         internal Request(
             Uri baseAddress,
-            HttpMethod method
-            )
+            TimeSpan? timeout,
+            HttpMethod method)
         {
             _requestMessageBuilder = new RequestMessageBuilder(this);
             _baseAddress = baseAddress;
+            _timeout = timeout;
             _method = method;
         }
 
+        internal Request(
+            Uri baseAddress,
+            HttpMethod method)
+            : this(baseAddress, null, method)
+        { }
+
         public IRequestMessageBuilder MessageBuilder => _requestMessageBuilder;
         public string Accept { get; set; } = "application/json";
-        internal Uri BaseAddress => _baseAddress;
+        public Uri BaseAddress => _baseAddress;
+        public TimeSpan? Timeout => _timeout;
         internal HttpMethod Method => _method;
         internal List<(string, string)> Headers => _headers;
         internal List<string> Paths => _paths;
@@ -52,6 +61,12 @@ namespace BrassLoon.RestClient.Internal
 
         public IRequest AddJsonBody(object body)
             => AddBody(new JsonRequestBody(body));
+
+        public IRequest AddJwtAuthorizationToken(string token)
+        {
+            _getJwtAuthorizationToken = () => Task.FromResult(token);
+            return this;
+        }
 
         public IRequest AddJwtAuthorizationToken(Func<string> getToken)
         {

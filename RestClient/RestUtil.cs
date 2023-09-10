@@ -12,13 +12,6 @@ namespace BrassLoon.RestClient
 {
     public class RestUtil
     {
-        public virtual async Task<T> Send<T>(IService service, IRequest request)
-        {
-            IResponse<T> response = await service.Send<T>(request);
-            CheckSuccess(response);
-            return response.Value;
-        }
-
         public virtual async Task<T> Send<T>(IService service, IRequest request, CancellationToken token = default)
         {
             IResponse<T> response = await service.Send<T>(request, token);
@@ -26,23 +19,9 @@ namespace BrassLoon.RestClient
             return response.Value;
         }
 
-        public virtual async Task<T> Post<T>(IService service, Uri uri, object body)
-        {
-            IResponse<T> response = await service.Post<T>(uri, body);
-            CheckSuccess(response);
-            return response.Value;
-        }
-
         public virtual async Task<T> Post<T>(IService service, Uri uri, object body, CancellationToken token = default)
         {
             IResponse<T> response = await service.Post<T>(uri, body, token);
-            CheckSuccess(response);
-            return response.Value;
-        }
-
-        public virtual async Task<T> Get<T>(IService service, Uri uri)
-        {
-            IResponse<T> response = await service.Get<T>(uri);
             CheckSuccess(response);
             return response.Value;
         }
@@ -70,18 +49,16 @@ namespace BrassLoon.RestClient
             }
         }
 
-        private static IDictionary AddRequestAddress(IDictionary data, HttpResponseMessage httpResponseMessage)
+        private static void AddRequestAddress(IDictionary data, HttpResponseMessage httpResponseMessage)
         {
             if (httpResponseMessage?.RequestMessage?.RequestUri != null)
                 data["RequestAddress"] = httpResponseMessage.RequestMessage.RequestUri.ToString();
-            return data;
         }
 
-        private static IDictionary AddText(IDictionary data, IResponse response)
+        private static void AddText(IDictionary data, IResponse response)
         {
             if (response?.Text != null)
                 data["Text"] = response.Text;
-            return data;
         }
 
         public virtual string AppendPath(string basePath, params string[] segments)

@@ -3,6 +3,7 @@ using Newtonsoft.Json.Serialization;
 using System;
 using System.Globalization;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -16,9 +17,7 @@ namespace BrassLoon.RestClient.Internal
         {
             string text = null;
             object json = null;
-            if (responseMessage.Content.Headers.ContentLength.HasValue
-                && responseMessage.Content.Headers.ContentLength.Value > 0L
-                && responseMessage.Content.Headers.ContentType != null)
+            if (!GetNoMessageContent(responseMessage))
             {
                 switch (responseMessage.Content.Headers.ContentType.MediaType.ToLower(CultureInfo.InvariantCulture))
                 {
@@ -47,9 +46,7 @@ namespace BrassLoon.RestClient.Internal
             T value = default(T);
             string text = null;
             object json = null;
-            if (responseMessage.Content.Headers.ContentLength.HasValue
-                && responseMessage.Content.Headers.ContentLength.Value > 0L
-                && responseMessage.Content.Headers.ContentType != null)
+            if (!GetNoMessageContent(responseMessage))
             {
                 switch (responseMessage.Content.Headers.ContentType.MediaType.ToLower(CultureInfo.InvariantCulture))
                 {
@@ -80,6 +77,14 @@ namespace BrassLoon.RestClient.Internal
                 Json = json
             };
 
+        private static bool GetNoMessageContent(HttpResponseMessage responseMessage)
+        {
+            return (responseMessage.Content.Headers.ContentLength.HasValue
+                && responseMessage.Content.Headers.ContentLength.Value == 0L)
+                || responseMessage.Content.Headers.ContentType == null
+                || responseMessage.StatusCode == HttpStatusCode.NoContent;
+        }
+
         private static async Task<CreateJsonResponse<T>> CreateJsonOnSuccess<T>(HttpResponseMessage responseMessage)
         {
             T value = default(T);
@@ -96,6 +101,9 @@ namespace BrassLoon.RestClient.Internal
             return new CreateJsonResponse<T> { Value = value, Json = json };
         }
 
+        private static string CreateJsonToText(object json)
+            => JsonConvert.SerializeObject(json, new JsonSerializerSettings { ContractResolver = new DefaultContractResolver() });
+
         private static async Task<T> CreateJson<T>(HttpResponseMessage responseMessage)
         {
             T value = default(T);
@@ -105,9 +113,6 @@ namespace BrassLoon.RestClient.Internal
             }
             return value;
         }
-
-        private static string CreateJsonToText(object json)
-            => JsonConvert.SerializeObject(json, new JsonSerializerSettings { ContractResolver = new DefaultContractResolver() });
 
         private static async Task<object> CreateJson(HttpResponseMessage responseMessage)
         {

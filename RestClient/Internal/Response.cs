@@ -26,6 +26,7 @@ namespace BrassLoon.RestClient.Internal
 
         protected virtual void Dispose(bool disposing)
         {
+#pragma warning disable S1066 // Collapsible "if" statements should be merged
             if (!_disposedValue)
             {
                 if (disposing)
@@ -39,6 +40,7 @@ namespace BrassLoon.RestClient.Internal
                 // set large fields to null
                 _disposedValue = true;
             }
+#pragma warning restore S1066 // Collapsible "if" statements should be merged
         }
 
         public void Dispose()

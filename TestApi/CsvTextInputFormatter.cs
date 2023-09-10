@@ -42,7 +42,6 @@ namespace TestApi
             };
             using StreamReader streamReader = new StreamReader(context.HttpContext.Request.Body, encoding);
             using CsvReader reader = new CsvReader(streamReader, csvConfiguration, false);
-            //reader.Context.Configuration.HeaderValidated = null;
             await foreach (object record in reader.GetRecordsAsync(modelType))
             {
                 records.Add(record);

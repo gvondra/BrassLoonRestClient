@@ -19,7 +19,7 @@ namespace BrassLoon.RestClient
         object Json { get; }
     }
 
-    public interface IResponse<T> : IResponse
+    public interface IResponse<out T> : IResponse
     {
         T Value { get; }
     }

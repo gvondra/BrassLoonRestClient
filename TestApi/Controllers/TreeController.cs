@@ -29,8 +29,10 @@ namespace TestApi.Controllers
         [HttpGet("Branch/{id}")]
         public IActionResult GetBranch(string id) => Ok(new { Branch = 404, Id = id });
 
+#pragma warning disable IDE0060 // Remove unused parameter
         [HttpPost(), HttpPut()]
         public IActionResult Create([FromBody] dynamic body) => Ok(Result);
+#pragma warning restore IDE0060 // Remove unused parameter
 
         [HttpPost("Leaves")]
         public IActionResult Post([FromBody] Leaves[] body) => Ok(body);

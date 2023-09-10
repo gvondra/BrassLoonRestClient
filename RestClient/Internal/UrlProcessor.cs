@@ -23,7 +23,7 @@ namespace BrassLoon.RestClient.Internal
         {
             UriBuilder builder = new UriBuilder(addreess);
             builder.Path = string.Join("/",
-                addreess.Segments.Where(seg => seg != "/")
+                addreess.Segments.Where(seg => seg != "/" && seg != string.Empty).Select(seg => seg.TrimEnd('/'))
                 .Concat(paths)
                 );
             return builder.Uri;
