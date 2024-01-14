@@ -34,7 +34,7 @@ csharp_prefer_simple_default_expression = false:none
 # IDE0063: Use simple 'using' statement
 dotnet_diagnostic.IDE0063.severity = none
 csharp_style_prefer_extended_property_pattern = true:suggestion
-csharp_style_prefer_primary_constructors = true:suggestion
+csharp_style_prefer_primary_constructors = false:suggestion
 
 [*.{cs,vb}]
 dotnet_style_operator_placement_when_wrapping = beginning_of_line
@@ -131,3 +131,6 @@ dotnet_diagnostic.IDE0010.severity = none
 
 # Deconstruct variable declaration
 dotnet_diagnostic.IDE0042.severity = none
+
+# IDE0300: Simplify collection initialization
+dotnet_style_prefer_collection_expression = false

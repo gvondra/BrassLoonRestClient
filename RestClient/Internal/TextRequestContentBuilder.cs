@@ -35,7 +35,7 @@ namespace BrassLoon.RestClient.Internal
             string value = string.Empty;
             if (stream != null && stream.Length > 0)
             {
-                using (TextReader textReader = new StreamReader(stream, Encoding.UTF8))
+                using (StreamReader textReader = new StreamReader(stream, Encoding.UTF8))
                 {
                     value = textReader.ReadToEnd();
                 }

@@ -209,7 +209,7 @@ namespace BrassLoon.RestClient
         }
         private static async Task<IResponse<T>> CreateResponseInternal<T>(HttpResponseMessage response)
         {
-            IResponseFactory factory = new ResponseFactory();
+            ResponseFactory factory = new ResponseFactory();
             return await factory.Create<T>(response);
         }
 
