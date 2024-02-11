@@ -63,10 +63,19 @@ namespace BrassLoon.RestClient
 
         public virtual string AppendPath(string basePath, params string[] segments)
         {
-            List<string> path = basePath.Split('/').Where(p => !string.IsNullOrEmpty(p)).ToList();
-            return string.Join("/",
-                path.Concat(segments.Where(s => !string.IsNullOrEmpty(s)))
-                );
+            UriBuilder builder = new UriBuilder(basePath);
+            List<string> path = builder.Path.Split('/')
+                .Concat(segments)
+                .Where(p => !string.IsNullOrEmpty(p))
+                .ToList();
+            path = path.Take(path.Count - 1)
+                .Select(p => p.Trim('/'))
+                .Concat(
+                path.Skip(path.Count - 1)
+                .Select(p => p.TrimStart('/')))
+                .ToList();
+            builder.Path = string.Join("/", path);
+            return builder.ToString();
         }
     }
 }

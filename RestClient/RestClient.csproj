@@ -9,8 +9,8 @@
     <Product>Brass Loon</Product>
     <Description>Generic REST Web API Interface</Description>
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
-    <Version>4.1.0</Version>
-    <AssemblyVersion>4.1.0.2</AssemblyVersion>
+    <Version>4.1.1</Version>
+    <AssemblyVersion>4.1.1.0</AssemblyVersion>
 	<PackageReleaseNotes>
 	  -v4.1 Added timeout parameter. New overload method AddJwtAuthorizationToken(string token)
 	  -v4.0 Switch to default cancellation tokens
