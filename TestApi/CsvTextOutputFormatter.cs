@@ -1,15 +1,15 @@
-﻿using CsvHelper.TypeConversion;
-using CsvHelper;
-using Microsoft.AspNetCore.Mvc.Formatters;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using System;
-using Microsoft.Net.Http.Headers;
-using System.Collections;
+using CsvHelper;
+using CsvHelper.TypeConversion;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.Net.Http.Headers;
 
 namespace TestApi
 {

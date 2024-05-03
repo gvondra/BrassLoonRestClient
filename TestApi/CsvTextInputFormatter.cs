@@ -1,13 +1,13 @@
-﻿using CsvHelper.Configuration;
-using CsvHelper;
+﻿using CsvHelper;
+using CsvHelper.Configuration;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.Net.Http.Headers;
+using System;
+using System.Collections;
 using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using System;
-using Microsoft.Net.Http.Headers;
-using System.Collections;
 
 namespace TestApi
 {
@@ -58,7 +58,6 @@ namespace TestApi
                 return InputFormatterResult.Success(records[0]);
             else
                 return InputFormatterResult.NoValue();
-
         }
     }
 }

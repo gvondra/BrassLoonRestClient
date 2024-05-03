@@ -6,6 +6,7 @@ namespace BrassLoon.CsvRestClient
     public static class RequestExtensions
     {
         public static IRequest AddCsvBody(this IRequest request, object body) => request.AddBody(new CsvRequestBody(body));
+
         public static IRequest AcceptCSV(this IRequest request)
         {
 #pragma warning disable IDE0078 // Use pattern matching

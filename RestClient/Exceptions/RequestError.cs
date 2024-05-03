@@ -5,6 +5,8 @@
     /// </summary>
     public class RequestError : BaseError
     {
-        public RequestError(IResponse response) : base(response, $"Error {(int)response.StatusCode} {response.StatusCode}") { }
+        public RequestError(IResponse response)
+            : base(response, $"Error {(int)response.StatusCode} {response.StatusCode}")
+        { }
     }
 }

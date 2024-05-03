@@ -36,15 +36,25 @@ namespace BrassLoon.RestClient.Internal
         { }
 
         public IRequestMessageBuilder MessageBuilder => _requestMessageBuilder;
+
         public string Accept { get; set; } = "application/json";
+
         public Uri BaseAddress => _baseAddress;
+
         public TimeSpan? Timeout => _timeout;
+
         internal HttpMethod Method => _method;
+
         internal List<(string, string)> Headers => _headers;
+
         internal List<string> Paths => _paths;
+
         internal Dictionary<string, string> PathParameters => _pathParameters;
+
         internal Dictionary<string, string> QueryParameters => _queryParameters;
+
         internal Func<Task<string>> GetJwtAuthorizationToken => _getJwtAuthorizationToken;
+
         internal IRequestBody RequestBody => _requestBody;
 
         public IRequest AddHeader(string name, string value)

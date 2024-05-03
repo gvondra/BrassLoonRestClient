@@ -49,18 +49,6 @@ namespace BrassLoon.RestClient
             }
         }
 
-        private static void AddRequestAddress(IDictionary data, HttpResponseMessage httpResponseMessage)
-        {
-            if (httpResponseMessage?.RequestMessage?.RequestUri != null)
-                data["RequestAddress"] = httpResponseMessage.RequestMessage.RequestUri.ToString();
-        }
-
-        private static void AddText(IDictionary data, IResponse response)
-        {
-            if (response?.Text != null)
-                data["Text"] = response.Text;
-        }
-
         public virtual string AppendPath(string basePath, params string[] segments)
         {
             UriBuilder builder = new UriBuilder(basePath);
@@ -76,6 +64,18 @@ namespace BrassLoon.RestClient
                 .ToList();
             builder.Path = string.Join("/", path);
             return builder.ToString();
+        }
+
+        private static void AddRequestAddress(IDictionary data, HttpResponseMessage httpResponseMessage)
+        {
+            if (httpResponseMessage?.RequestMessage?.RequestUri != null)
+                data["RequestAddress"] = httpResponseMessage.RequestMessage.RequestUri.ToString();
+        }
+
+        private static void AddText(IDictionary data, IResponse response)
+        {
+            if (response?.Text != null)
+                data["Text"] = response.Text;
         }
     }
 }

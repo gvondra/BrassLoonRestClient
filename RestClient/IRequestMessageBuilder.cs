@@ -6,6 +6,7 @@ namespace BrassLoon.RestClient
     public interface IRequestMessageBuilder
     {
         Task<HttpRequestMessage> Build();
+
         IResponseFactory CreateResponseFactory();
     }
 }

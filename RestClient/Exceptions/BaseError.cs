@@ -18,7 +18,9 @@ namespace BrassLoon.RestClient.Exceptions
         }
 
         public HttpStatusCode StatusCode => _response.StatusCode;
+
         public string Text => _response.Text;
+
         public IResponse Response => _response;
     }
 #pragma warning restore S3376 // Attribute, EventArgs, and Exception type names should end with the type being extended

@@ -14,8 +14,6 @@ namespace BrassLoon.RestClient.Internal
             _body = body;
         }
 
-        public HttpContent Build() => Build(_body?.Body);
-
         public static HttpContent Build(object body)
         {
             MemoryStream stream = new MemoryStream();
@@ -65,5 +63,7 @@ namespace BrassLoon.RestClient.Internal
             }
             return value;
         }
+
+        public HttpContent Build() => Build(_body?.Body);
     }
 }

@@ -22,25 +22,10 @@ namespace BrassLoon.RestClient.Internal
         public static Uri AppendPaths(Uri addreess, List<string> paths)
         {
             UriBuilder builder = new UriBuilder(addreess);
-            builder.Path = string.Join("/",
+            builder.Path = string.Join(
+                "/",
                 addreess.Segments.Where(seg => seg != "/" && seg != string.Empty).Select(seg => seg.TrimEnd('/'))
-                .Concat(paths)
-                );
-            return builder.Uri;
-        }
-
-        private static Uri ReplacePathVariables(Uri addreess, Dictionary<string, string> parameters)
-        {
-            UriBuilder builder = new UriBuilder(addreess);
-            string path = WebUtility.UrlDecode(builder.Path);
-            foreach (KeyValuePair<string, string> keyValue in parameters)
-            {
-                path = path.Replace(
-                    $"{{{keyValue.Key}}}",
-                    WebUtility.UrlEncode(keyValue.Value ?? string.Empty)
-                    );
-            }
-            builder.Path = path;
+                .Concat(paths));
             return builder.Uri;
         }
 
@@ -57,14 +42,28 @@ namespace BrassLoon.RestClient.Internal
             if (pairs.Count > 0)
                 /*
                  * The UriBuilder's set query method behaves differently between .net core and .net framework
-                 * Both are trying to add a question mark to the begining. But they differ when there's 
+                 * Both are trying to add a question mark to the begining. But they differ when there's
                  * already a question mark at the start of the string.
-                 * In .net framework, if the query string passed in starts with question mark then another 
+                 * In .net framework, if the query string passed in starts with question mark then another
                  * question mark is pre-pended leaving you with 2 question marks. (these caused me issues)
-                 * In .net core, if the query string passed in starts with a question mark then no addition 
+                 * In .net core, if the query string passed in starts with a question mark then no addition
                  * question mark is added.
                  */
                 builder.Query = string.Join("&", pairs.ToArray());
+            return builder.Uri;
+        }
+
+        private static Uri ReplacePathVariables(Uri addreess, Dictionary<string, string> parameters)
+        {
+            UriBuilder builder = new UriBuilder(addreess);
+            string path = WebUtility.UrlDecode(builder.Path);
+            foreach (KeyValuePair<string, string> keyValue in parameters)
+            {
+                path = path.Replace(
+                    $"{{{keyValue.Key}}}",
+                    WebUtility.UrlEncode(keyValue.Value ?? string.Empty));
+            }
+            builder.Path = path;
             return builder.Uri;
         }
     }

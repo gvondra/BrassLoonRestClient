@@ -137,6 +137,7 @@ namespace BrassLoon.RestClient.Internal
         private struct CreateJsonResponse<T>
         {
             public T Value { get; set; }
+
             public object Json { get; set; }
         }
     }

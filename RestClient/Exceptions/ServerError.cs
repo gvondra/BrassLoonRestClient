@@ -5,6 +5,7 @@
     /// </summary>
     public class ServerError : BaseError
     {
-        public ServerError(IResponse response) : base(response, $"Server Error {(int)response.StatusCode} {response.StatusCode}") { }
+        public ServerError(IResponse response)
+            : base(response, $"Server Error {(int)response.StatusCode} {response.StatusCode}") { }
     }
 }

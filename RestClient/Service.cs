@@ -16,6 +16,7 @@ namespace BrassLoon.RestClient
                 client.CancelPendingRequests();
             }
         }
+
         public void ClearCache() => HttpClientBuilder.ClearCache();
 
         public IRequest CreateRequest(Uri address, HttpMethod method) => new Request(address, method);
@@ -37,56 +38,65 @@ namespace BrassLoon.RestClient
         public async Task<IResponse> Delete(Uri uri, CancellationToken token = default)
         {
             return new Response(
-                await GetWebResponseInternal(async tkn => await HttpClientBuilder.Get().DeleteAsync(uri, tkn),
-                token));
+                await GetWebResponseInternal(
+                    async tkn => await HttpClientBuilder.Get().DeleteAsync(uri, tkn),
+                    token));
         }
 
         public async Task<IResponse> Delete(Uri uri, TimeSpan timeout, CancellationToken token = default(CancellationToken))
         {
             return new Response(
-                await GetWebResponseInternal(async tkn => await HttpClientBuilder.Get(timeout).DeleteAsync(uri, tkn),
-                token));
+                await GetWebResponseInternal(
+                    async tkn => await HttpClientBuilder.Get(timeout).DeleteAsync(uri, tkn),
+                    token));
         }
 
         public async Task<IResponse<T>> Delete<T>(Uri uri, CancellationToken token = default)
         {
             return await CreateResponseInternal<T>(
-                await GetWebResponseInternal(async tkn => await HttpClientBuilder.Get().DeleteAsync(uri, tkn),
-                token));
+                await GetWebResponseInternal(
+                    async tkn => await HttpClientBuilder.Get().DeleteAsync(uri, tkn),
+                    token));
         }
+
         public async Task<IResponse<T>> Delete<T>(Uri uri, TimeSpan timeout, CancellationToken token = default(CancellationToken))
         {
             return await CreateResponseInternal<T>(
-                await GetWebResponseInternal(async tkn => await HttpClientBuilder.Get(timeout).DeleteAsync(uri, tkn),
-                token));
+                await GetWebResponseInternal(
+                    async tkn => await HttpClientBuilder.Get(timeout).DeleteAsync(uri, tkn),
+                    token));
         }
 
         public async Task<IResponse> Get(Uri uri, CancellationToken token = default)
         {
             return new Response(
-                await GetWebResponseInternal(async tkn => await HttpClientBuilder.Get().GetAsync(uri, tkn),
-                token));
+                await GetWebResponseInternal(
+                    async tkn => await HttpClientBuilder.Get().GetAsync(uri, tkn),
+                    token));
         }
 
         public async Task<IResponse> Get(Uri uri, TimeSpan timeout, CancellationToken token = default(CancellationToken))
         {
             return new Response(
-                await GetWebResponseInternal(async tkn => await HttpClientBuilder.Get(timeout).GetAsync(uri, tkn),
-                token));
+                await GetWebResponseInternal(
+                    async tkn => await HttpClientBuilder.Get(timeout).GetAsync(uri, tkn),
+                    token));
         }
 
         public async Task<IResponse<T>> Get<T>(Uri uri, CancellationToken token = default)
         {
             return await CreateResponseInternal<T>(
-                await GetWebResponseInternal(async tkn => await HttpClientBuilder.Get().GetAsync(uri, tkn),
-                token));
+                await GetWebResponseInternal(
+                    async tkn => await HttpClientBuilder.Get().GetAsync(uri, tkn),
+                    token));
         }
 
         public async Task<IResponse<T>> Get<T>(Uri uri, TimeSpan timeout, CancellationToken token = default(CancellationToken))
         {
             return await CreateResponseInternal<T>(
-                await GetWebResponseInternal(async tkn => await HttpClientBuilder.Get(timeout).GetAsync(uri, tkn),
-                token));
+                await GetWebResponseInternal(
+                    async tkn => await HttpClientBuilder.Get(timeout).GetAsync(uri, tkn),
+                    token));
         }
 
         public async Task<byte[]> GetBytes(Uri uri) => await HttpClientBuilder.Get().GetByteArrayAsync(uri);
@@ -189,30 +199,6 @@ namespace BrassLoon.RestClient
                     token));
         }
 
-        private static async Task<HttpResponseMessage> GetWebResponseInternal(
-            Func<CancellationToken, Task<HttpResponseMessage>> getResponse,
-            CancellationToken token = default)
-            => await getResponse(token);
-
-        private static async Task<HttpResponseMessage> GetWebResponseWithJsonContentInternal(
-            Uri uri,
-            object body,
-            Func<HttpClient> getHttpClient,
-            Func<HttpClient, Uri, HttpContent, CancellationToken, Task<HttpResponseMessage>> getResponse,
-            CancellationToken token = default)
-        {
-            HttpClient client = getHttpClient();
-            using (HttpContent content = JsonRequestContentBuilder.Build(body))
-            {
-                return await getResponse(client, uri, content, token);
-            }
-        }
-        private static async Task<IResponse<T>> CreateResponseInternal<T>(HttpResponseMessage response)
-        {
-            ResponseFactory factory = new ResponseFactory();
-            return await factory.Create<T>(response);
-        }
-
         public async Task<IResponse> Send(IRequest request, CancellationToken token = default)
         {
             HttpClient client = HttpClientBuilder.Get(request.Timeout);
@@ -233,6 +219,31 @@ namespace BrassLoon.RestClient
                 IResponseFactory responseFactory = request.MessageBuilder.CreateResponseFactory();
                 return await responseFactory.Create<T>(responseMessage);
             }
+        }
+
+        private static async Task<HttpResponseMessage> GetWebResponseInternal(
+            Func<CancellationToken, Task<HttpResponseMessage>> getResponse,
+            CancellationToken token = default)
+            => await getResponse(token);
+
+        private static async Task<HttpResponseMessage> GetWebResponseWithJsonContentInternal(
+            Uri uri,
+            object body,
+            Func<HttpClient> getHttpClient,
+            Func<HttpClient, Uri, HttpContent, CancellationToken, Task<HttpResponseMessage>> getResponse,
+            CancellationToken token = default)
+        {
+            HttpClient client = getHttpClient();
+            using (HttpContent content = JsonRequestContentBuilder.Build(body))
+            {
+                return await getResponse(client, uri, content, token);
+            }
+        }
+
+        private static async Task<IResponse<T>> CreateResponseInternal<T>(HttpResponseMessage response)
+        {
+            ResponseFactory factory = new ResponseFactory();
+            return await factory.Create<T>(response);
         }
     }
 }

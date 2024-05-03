@@ -8,10 +8,10 @@ namespace TestApi.Controllers
     {
         private static readonly dynamic Result = new { Name = "Maple" };
 
-        [HttpDelete()]
+        [HttpDelete]
         public IActionResult Delete() => Ok(Result);
 
-        [HttpGet()]
+        [HttpGet]
         public IActionResult Get() => Ok(Result);
 
         [HttpGet("Empty")]
@@ -30,7 +30,7 @@ namespace TestApi.Controllers
         public IActionResult GetBranch(string id) => Ok(new { Branch = 404, Id = id });
 
 #pragma warning disable IDE0060 // Remove unused parameter
-        [HttpPost(), HttpPut()]
+        [HttpPost, HttpPut]
         public IActionResult Create([FromBody] dynamic body) => Ok(Result);
 #pragma warning restore IDE0060 // Remove unused parameter
 

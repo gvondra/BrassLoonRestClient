@@ -24,6 +24,13 @@ namespace BrassLoon.RestClient.Internal
 
         public object Json { get; internal set; }
 
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
         protected virtual void Dispose(bool disposing)
         {
 #pragma warning disable S1066 // Collapsible "if" statements should be merged
@@ -42,20 +49,14 @@ namespace BrassLoon.RestClient.Internal
             }
 #pragma warning restore S1066 // Collapsible "if" statements should be merged
         }
-
-        public void Dispose()
-        {
-            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
-        }
     }
 
     public sealed class Response<T> : Response, IResponse<T>
     {
         private readonly T _value;
 
-        internal Response(HttpResponseMessage message, T value) : base(message)
+        internal Response(HttpResponseMessage message, T value)
+            : base(message)
         {
             _value = value;
         }

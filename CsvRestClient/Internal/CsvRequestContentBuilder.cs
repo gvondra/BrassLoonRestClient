@@ -20,8 +20,6 @@ namespace BrassLoon.CsvRestClient.Internal
             _body = body;
         }
 
-        public HttpContent Build() => Build(_body?.Body);
-
         public static HttpContent Build(object body)
         {
             MemoryStream stream = new MemoryStream();
@@ -34,6 +32,8 @@ namespace BrassLoon.CsvRestClient.Internal
             result.Headers.Add("Content-Type", "text/csv");
             return result;
         }
+
+        public HttpContent Build() => Build(_body?.Body);
 
         private static void Serialize(Stream stream, object body)
         {
