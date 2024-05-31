@@ -26,7 +26,7 @@ namespace TestClient
             }
             catch (Exception ex)
             {
-                Console.Error.WriteLine(ex.ToString());
+                await Console.Error.WriteLineAsync(ex.ToString());
             }
         }
 
@@ -63,7 +63,7 @@ namespace TestClient
             {
                 using (StreamReader reader = new StreamReader(m))
                 {
-                    Console.WriteLine(reader.ReadToEnd());
+                    Console.WriteLine(await reader.ReadToEndAsync());
                 }
             }
             IRequest request = service.CreateRequest(new Uri("http://localhost:5000/api"), HttpMethod.Get)

@@ -53,11 +53,11 @@ namespace TestApi
                 records = recordArray;
             }
             if (returnCollection)
-                return InputFormatterResult.Success(records);
+                return await InputFormatterResult.SuccessAsync(records);
             else if (records.Count > 0)
-                return InputFormatterResult.Success(records[0]);
+                return await InputFormatterResult.SuccessAsync(records[0]);
             else
-                return InputFormatterResult.NoValue();
+                return await InputFormatterResult.NoValueAsync();
         }
     }
 }

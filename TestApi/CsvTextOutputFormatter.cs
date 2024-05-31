@@ -40,10 +40,10 @@ namespace TestApi
                 if (writeHeader)
                 {
                     writer.WriteHeader(enumerator.Current.GetType());
-                    writer.NextRecord();
+                    await writer.NextRecordAsync();
                 }
                 writer.WriteRecord(enumerator.Current);
-                writer.NextRecord();
+                await writer.NextRecordAsync();
                 writeHeader = false;
             }
             await writer.FlushAsync();
