@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFrameworks>net8.0;net6.0;netstandard2.0</TargetFrameworks>
+	<TargetFrameworks>net10.0;net8.0;net6.0;netstandard2.0</TargetFrameworks>
 	<Nullable>disable</Nullable>
 	<ImplicitUsings>disable</ImplicitUsings>
     <Authors>Greg Vondra</Authors>
@@ -9,9 +9,9 @@
     <Product>Brass Loon</Product>
     <Description>Generic REST Web API Interface</Description>
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
-    <Version>4.1.1</Version>
-    <AssemblyVersion>4.1.1.0</AssemblyVersion>
-	<PackageReleaseNotes>
+    <Version>4.2.0</Version>
+    <AssemblyVersion>4.2.0.0</AssemblyVersion>
+	<PackageReleaseNotes>-v4.2 add target framework net10.0
 	  -v4.1 Added timeout parameter. New overload method AddJwtAuthorizationToken(string token)
 	  -v4.0 Switch to default cancellation tokens
 	  -v3.2 Added cancellation tokens to RestUtil API calls

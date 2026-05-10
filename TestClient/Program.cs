@@ -32,7 +32,7 @@ namespace TestClient
 
         private static async Task Delete()
         {
-            IService service = new Service();
+            Service service = new Service();
             await service.Delete(new Uri("http://localhost:5000/api/Tree"));
             using IResponse<Result> r = await service.Delete<Result>(new Uri("http://localhost:5000/api/Tree"));
             IRequest request = service.CreateRequest(new Uri("http://localhost:5000/api"), HttpMethod.Delete)
@@ -43,7 +43,7 @@ namespace TestClient
 
         private static async Task GetNoContent()
         {
-            IService service = new Service();
+            Service service = new Service();
             IRequest request = service.CreateRequest(new Uri("http://localhost:5000/api/Tree/Empty"), HttpMethod.Get);
             await service.Send(request);
             request = service.CreateRequest(new Uri("http://localhost:5000/api/Tree/Null"), HttpMethod.Get);
@@ -54,7 +54,7 @@ namespace TestClient
 
         private static async Task Get()
         {
-            IService service = new Service();
+            Service service = new Service();
             await service.Get(new Uri("http://localhost:5000/api/Tree"));
             using IResponse<Result> r = await service.Get<Result>(new Uri("http://localhost:5000/api/Tree"));
             string s = await service.GetString(new Uri("http://localhost:5000/api/Tree/Name"));
@@ -82,7 +82,7 @@ namespace TestClient
 
         private static async Task Create()
         {
-            IService service = new Service();
+            Service service = new Service();
             await service.Post(new Uri("http://localhost:5000/api/Tree"), new { Name = "Oak" });
             using IResponse<Result> r = await service.Post<Result>(new Uri("http://localhost:5000/api/Tree"), new { Name = "Oak" });
             IRequest request = service.CreateRequest(new Uri("http://localhost:5000/api"), HttpMethod.Post)
@@ -94,7 +94,7 @@ namespace TestClient
 
         private static async Task Update()
         {
-            IService service = new Service();
+            Service service = new Service();
             await service.Put(new Uri("http://localhost:5000/api/Tree"), new { Name = "Oak" });
             using IResponse<Result> r = await service.Put<Result>(new Uri("http://localhost:5000/api/Tree"), new { Name = "Oak" });
             IRequest request = service.CreateRequest(new Uri("http://localhost:5000/api"), HttpMethod.Put)
@@ -106,7 +106,7 @@ namespace TestClient
 
         private static async Task PostArray()
         {
-            IService service = new Service();
+            Service service = new Service();
             IRequest request = service.CreateRequest(new Uri("http://localhost:5000/api"), HttpMethod.Post);
             Leaves body = new Leaves { Id = "1441" };
             request = request.AddPath("Tree/Leaves")

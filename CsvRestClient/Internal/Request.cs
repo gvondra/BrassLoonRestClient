@@ -19,6 +19,10 @@ namespace BrassLoon.CsvRestClient.Internal
 
         public IRequestMessageBuilder MessageBuilder => _messageBuilder;
 
+        public Uri BaseAddress => _innerRequest.BaseAddress;
+
+        public TimeSpan? Timeout => _innerRequest.Timeout;
+
         public IRequest AddBody(IRequestBody body)
         {
             _innerRequest.AddBody(body);
@@ -42,6 +46,12 @@ namespace BrassLoon.CsvRestClient.Internal
         public IRequest AddJwtAuthorizationToken(Func<Task<string>> getToken)
         {
             _innerRequest.AddJwtAuthorizationToken(getToken);
+            return this;
+        }
+
+        public IRequest AddJwtAuthorizationToken(string token)
+        {
+            _innerRequest.AddJwtAuthorizationToken(token);
             return this;
         }
 
